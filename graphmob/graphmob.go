@@ -48,6 +48,8 @@ type Client struct {
   common service
 
   Search *SearchService
+  Verify *VerifyService
+  Enrich *EnrichService
 }
 
 type service struct {
@@ -92,6 +94,8 @@ func NewWithConfig(config ClientConfig) *Client {
 
   // Map services
   client.Search = (*SearchService)(&client.common)
+  client.Verify = (*VerifyService)(&client.common)
+  client.Enrich = (*EnrichService)(&client.common)
 
   return client
 }
