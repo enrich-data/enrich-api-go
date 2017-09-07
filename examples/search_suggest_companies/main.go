@@ -12,9 +12,7 @@ import (
 
 func main() {
   // TODO: revert to default
-  client := graphmob.NewWithConfig(graphmob.ClientConfig{
-    RestEndpointURL: "http://api.graphmob.com.dev/v1/",
-  })
+  client := graphmob.New()
   client.Authenticate("ui_a311da78-6b89-459c-8028-b331efab20d5", "sk_f293d44f-675d-4cb1-9c78-52b8a9af0df2")
 
   data, _, err := client.Search.SuggestCompanies(1, "Crisp")

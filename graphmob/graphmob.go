@@ -10,6 +10,7 @@ import (
   "bytes"
   "encoding/json"
   "fmt"
+  "time"
   "io"
   "io/ioutil"
   "net/http"
@@ -22,6 +23,11 @@ const (
   defaultRestEndpointURL = "https://api.graphmob.com/v1/"
   userAgent = "graphmob-api-go/" + libraryVersion
   acceptContentType = "application/json"
+  clientTimeout = 5
+  processingStatusCode = 102
+  notFoundStatusCode = 404
+  processingRetryWait = 5
+  processingRetryCountMax = 2
 )
 
 // ClientConfig mapping
@@ -62,7 +68,6 @@ type Response struct {
 }
 
 type errorResponse struct {
-  Response *http.Response
   Reason   string  `json:"reason,omitempty"`
   Message  string  `json:"message,omitempty"`
 }
@@ -70,9 +75,7 @@ type errorResponse struct {
 
 // Error prints an error response
 func (response *errorResponse) Error() string {
-  return fmt.Sprintf("%v %v: %d %v %v",
-    response.Response.Request.Method, response.Response.Request.URL,
-    response.Response.StatusCode, response.Reason, response.Message)
+  return fmt.Sprintf("%v %v", response.Reason, response.Message)
 }
 
 
@@ -81,6 +84,7 @@ func NewWithConfig(config ClientConfig) *Client {
   // Defaults
   if config.HTTPClient == nil {
     config.HTTPClient = http.DefaultClient
+    config.HTTPClient.Timeout = time.Duration(clientTimeout * time.Second)
   }
   if config.RestEndpointURL == "" {
     config.RestEndpointURL = defaultRestEndpointURL
@@ -155,6 +159,20 @@ func (client *Client) NewRequest(method, urlStr string, body interface{}) (*http
 
 // Do sends an API request
 func (client *Client) Do(req *http.Request, v interface{}) (*Response, error) {
+  return client.DoInner(req, v, 0, 0)
+}
+
+
+// DoInner sends an API request (inner)
+func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8, holdForSeconds time.Duration) (*Response, error) {
+  // Abort?
+  if retryCount > processingRetryCountMax {
+    return nil, &errorResponse{Reason: "not_found", Message: "The requested item was not found, after attempted discovery."}
+  }
+
+  // Hold
+  time.Sleep(time.Duration(holdForSeconds * time.Second))
+
   resp, err := client.client.Do(req)
   if err != nil {
     return nil, err
@@ -167,20 +185,18 @@ func (client *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 
   response := newResponse(resp)
 
-  err = CheckResponse(resp)
+  // Re-schedule request? (processing)
+  if response.StatusCode == processingStatusCode || (retryCount > 0 && response.StatusCode == notFoundStatusCode) {
+    return client.DoInner(req, v, retryCount + 1, processingRetryWait)
+  }
+
+  err = checkResponse(resp)
   if err != nil {
     return response, err
   }
 
-  if v != nil {
-    if w, ok := v.(io.Writer); ok {
-      io.Copy(w, resp.Body)
-    } else {
-      err = json.NewDecoder(resp.Body).Decode(v)
-      if err == io.EOF {
-        err = nil
-      }
-    }
+  if decodeResponse(resp, v) == true {
+    err = nil
   }
 
   return response, err
@@ -195,17 +211,30 @@ func newResponse(httpResponse *http.Response) *Response {
 }
 
 
-// CheckResponse checks response for errors
-func CheckResponse(response *http.Response) error {
+// checkResponse checks response for errors
+func checkResponse(response *http.Response) error {
   if code := response.StatusCode; 200 <= code && code <= 299 {
     return nil
   }
-  errorResponse := &errorResponse{Response: response}
+  errorResponse := &errorResponse{}
 
-  data, err := ioutil.ReadAll(response.Body)
-  if err == nil && data != nil {
-    json.Unmarshal(data, errorResponse)
+  if json.NewDecoder(response.Body).Decode(errorResponse) != nil {
+    errorResponse.Reason = "error";
+    errorResponse.Message = "Request could not be submitted.";
   }
 
   return errorResponse
+}
+
+
+// decodeResponse decodes response body
+func decodeResponse(resp *http.Response, v interface{}) bool {
+  if v != nil {
+    if w, ok := v.(io.Writer); ok {
+      io.Copy(w, resp.Body)
+    } else if json.NewDecoder(resp.Body).Decode(v) == io.EOF {
+      return true
+    }
+  }
+  return false
 }
