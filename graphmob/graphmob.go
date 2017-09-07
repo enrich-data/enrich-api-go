@@ -15,19 +15,19 @@ import (
   "io/ioutil"
   "net/http"
   "net/url"
+  "strconv"
 )
 
 
 const (
-  libraryVersion = "1.0.2"
+  libraryVersion = "1.0.3"
   defaultRestEndpointURL = "https://api.graphmob.com/v1/"
   userAgent = "graphmob-api-go/" + libraryVersion
   acceptContentType = "application/json"
   clientTimeout = 5
-  processingStatusCode = 102
+  createdStatusCode = 201
   notFoundStatusCode = 404
-  processingRetryWait = 5
-  processingRetryCountMax = 2
+  createdRetryCountMax = 2
 )
 
 // ClientConfig mapping
@@ -168,14 +168,14 @@ func (client *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 
 
 // DoInner sends an API request (inner)
-func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8, holdForSeconds time.Duration) (*Response, error) {
+func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8, holdForSeconds int) (*Response, error) {
   // Abort?
-  if retryCount > processingRetryCountMax {
+  if retryCount > createdRetryCountMax {
     return nil, &errorResponseError{Reason: "not_found", Message: "The requested item was not found, after attempted discovery."}
   }
 
   // Hold
-  time.Sleep(time.Duration(holdForSeconds * time.Second))
+  time.Sleep(time.Duration(holdForSeconds) * time.Second)
 
   resp, err := client.client.Do(req)
   if err != nil {
@@ -189,9 +189,20 @@ func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8
 
   response := newResponse(resp)
 
-  // Re-schedule request? (processing)
-  if response.StatusCode == processingStatusCode || (retryCount > 0 && response.StatusCode == notFoundStatusCode) {
-    return client.DoInner(req, v, retryCount + 1, processingRetryWait)
+  // Re-schedule request? (created)
+  if response.StatusCode == createdStatusCode || (retryCount > 0 && response.StatusCode == notFoundStatusCode) {
+    holdWaitOrder := resp.Header.Get("Retry-After")
+    holdWait := holdForSeconds
+
+    if holdWaitOrder != "" {
+      holdWaitParsed, holdWaitErr := strconv.ParseInt(holdWaitOrder, 10, 32)
+
+      if holdWaitErr == nil {
+        holdWait = int(holdWaitParsed)
+      }
+    }
+
+    return client.DoInner(req, v, retryCount + 1, holdWait)
   }
 
   err = checkResponse(resp)
