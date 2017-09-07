@@ -19,7 +19,7 @@ import (
 
 
 const (
-  libraryVersion = "1.0.1"
+  libraryVersion = "1.0.2"
   defaultRestEndpointURL = "https://api.graphmob.com/v1/"
   userAgent = "graphmob-api-go/" + libraryVersion
   acceptContentType = "application/json"
@@ -68,13 +68,17 @@ type Response struct {
 }
 
 type errorResponse struct {
+  Error  errorResponseError  `json:"error,omitempty"`
+}
+
+type errorResponseError struct {
   Reason   string  `json:"reason,omitempty"`
   Message  string  `json:"message,omitempty"`
 }
 
 
 // Error prints an error response
-func (response *errorResponse) Error() string {
+func (response *errorResponseError) Error() string {
   return fmt.Sprintf("%v %v", response.Reason, response.Message)
 }
 
@@ -167,7 +171,7 @@ func (client *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8, holdForSeconds time.Duration) (*Response, error) {
   // Abort?
   if retryCount > processingRetryCountMax {
-    return nil, &errorResponse{Reason: "not_found", Message: "The requested item was not found, after attempted discovery."}
+    return nil, &errorResponseError{Reason: "not_found", Message: "The requested item was not found, after attempted discovery."}
   }
 
   // Hold
@@ -219,11 +223,10 @@ func checkResponse(response *http.Response) error {
   errorResponse := &errorResponse{}
 
   if json.NewDecoder(response.Body).Decode(errorResponse) != nil {
-    errorResponse.Reason = "error";
-    errorResponse.Message = "Request could not be submitted.";
+    errorResponse.Error = errorResponseError{Reason: "error", Message: "Request could not be submitted."}
   }
 
-  return errorResponse
+  return &errorResponse.Error
 }
 
 
