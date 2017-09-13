@@ -16,6 +16,11 @@ import (
 type SearchService service
 
 
+// LookupPeopleData mapping
+type LookupPeopleData struct {
+  People  *[]LookupPeopleItem  `json:"people,omitempty"`
+}
+
 // LookupCompaniesData mapping
 type LookupCompaniesData struct {
   Companies  *[]Company  `json:"companies,omitempty"`
@@ -30,6 +35,12 @@ type LookupEmailsData struct {
 // SuggestCompaniesData mapping
 type SuggestCompaniesData struct {
   Companies  *[]SuggestCompaniesItem  `json:"companies,omitempty"`
+}
+
+// LookupPeopleItem mapping
+type LookupPeopleItem struct {
+  Person     *Person     `json:"person,omitempty"`
+  Companies  *[]Company  `json:"companies,omitempty"`
 }
 
 // LookupEmailsCompanyCard mapping
@@ -61,6 +72,11 @@ type SuggestCompaniesItem struct {
 }
 
 
+// String returns the string representation of LookupPeopleData
+func (instance LookupPeopleData) String() string {
+  return Stringify(instance)
+}
+
 // String returns the string representation of LookupCompaniesData
 func (instance LookupCompaniesData) String() string {
   return Stringify(instance)
@@ -73,6 +89,11 @@ func (instance LookupEmailsData) String() string {
 
 // String returns the string representation of SuggestCompaniesData
 func (instance SuggestCompaniesData) String() string {
+  return Stringify(instance)
+}
+
+// String returns the string representation of LookupPeopleItem
+func (instance LookupPeopleItem) String() string {
   return Stringify(instance)
 }
 
@@ -89,6 +110,21 @@ func (instance LookupEmailsEmail) String() string {
 // String returns the string representation of LookupEmailsEmailPersonCard
 func (instance LookupEmailsEmailPersonCard) String() string {
   return Stringify(instance)
+}
+
+
+// LookupPeopleBy lookups in people worldwide, provided search parameters.
+func (service *SearchService) LookupPeopleBy(pageNumber uint, key string, value string) (*LookupPeopleData, *Response, error) {
+  url := fmt.Sprintf("search/lookup/people/%d?%s=%s", pageNumber, key, url.QueryEscape(value))
+  req, _ := service.client.NewRequest("GET", url, nil)
+
+  data := new(LookupPeopleData)
+  resp, err := service.client.Do(req, data)
+  if err != nil {
+    return nil, resp, err
+  }
+
+  return data, resp, err
 }
 
 
