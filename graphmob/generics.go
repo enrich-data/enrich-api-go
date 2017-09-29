@@ -132,12 +132,13 @@ type NetworkBlockOwner struct {
 
 // Contact mapping
 type Contact struct {
-  domain    *string    `json:"domain,omitempty"`
-  website   *string    `json:"website,omitempty"`
-  facebook  *string    `json:"facebook,omitempty"`
-  twitter   *string    `json:"twitter,omitempty"`
-  emails    *[]string  `json:"emails,omitempty"`
-  phones    *[]string  `json:"phones,omitempty"`
+  Domain    *string    `json:"domain,omitempty"`
+  Website   *string    `json:"website,omitempty"`
+  Facebook  *string    `json:"facebook,omitempty"`
+  Twitter   *string    `json:"twitter,omitempty"`
+  LinkedIn  *uint      `json:"linkedin,omitempty"`
+  Emails    *[]string  `json:"emails,omitempty"`
+  Phones    *[]string  `json:"phones,omitempty"`
 }
 
 // Address mapping
