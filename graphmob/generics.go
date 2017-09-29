@@ -136,7 +136,7 @@ type Contact struct {
   Website   *string    `json:"website,omitempty"`
   Facebook  *string    `json:"facebook,omitempty"`
   Twitter   *string    `json:"twitter,omitempty"`
-  LinkedIn  *uint      `json:"linkedin,omitempty"`
+  LinkedIn  *string    `json:"linkedin,omitempty"`
   Emails    *[]string  `json:"emails,omitempty"`
   Phones    *[]string  `json:"phones,omitempty"`
 }

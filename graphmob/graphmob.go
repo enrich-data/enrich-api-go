@@ -20,7 +20,7 @@ import (
 
 
 const (
-  libraryVersion = "1.0.5"
+  libraryVersion = "1.0.6"
   defaultRestEndpointURL = "https://api.graphmob.com/v1/"
   userAgent = "graphmob-api-go/" + libraryVersion
   acceptContentType = "application/json"
