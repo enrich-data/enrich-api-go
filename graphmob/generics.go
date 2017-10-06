@@ -71,7 +71,7 @@ type CompanyCategory struct {
 // CompanyMetrics mapping
 type CompanyMetrics struct {
   AnnualRevenue     *CompanyMetricsAnnualRevenue  `json:"annual_revenue,omitempty"`
-  Employees         *uint32                       `json:"employees,omitempty"`
+  Employees         *[]uint32                     `json:"employees,omitempty"`
   FacebookLikes     *uint32                       `json:"facebook_likes,omitempty"`
   TwitterFollowers  *uint32                       `json:"twitter_followers,omitempty"`
 }
