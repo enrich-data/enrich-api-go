@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package graphmob
+package enrich
 
 
 import (
@@ -20,9 +20,9 @@ import (
 
 
 const (
-  libraryVersion = "1.0.7"
-  defaultRestEndpointURL = "https://api.graphmob.com/v1/"
-  userAgent = "graphmob-api-go/" + libraryVersion
+  libraryVersion = "1.1.0"
+  defaultRestEndpointURL = "https://api.enrichdata.com/v1/"
+  userAgent = "enrich-api-go/" + libraryVersion
   acceptContentType = "application/json"
   clientTimeout = 5
   createdStatusCode = 201

@@ -6,12 +6,12 @@
 package main
 
 import (
-  "gitlab.com/graphmob-com/graphmob-api-go/graphmob"
+  "gitlab.com/enrich-data/enrich-api-go/enrich"
   "fmt"
 )
 
 func main() {
-  client := graphmob.New()
+  client := enrich.New()
   client.Authenticate("ui_a311da78-6b89-459c-8028-b331efab20d5", "sk_f293d44f-675d-4cb1-9c78-52b8a9af0df2")
 
   data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
