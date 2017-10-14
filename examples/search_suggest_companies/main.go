@@ -6,7 +6,7 @@
 package main
 
 import (
-  "gitlab.com/enrich-data/enrich-api-go/enrich"
+  "github.com/enrich-data/enrich-api-go/enrich"
   "fmt"
 )
 

@@ -12,7 +12,7 @@ Copyright 2017 Enrich. See LICENSE for copying information.
 Import the library:
 
 ```go
-import "gitlab.com/enrich-data/enrich-api-go/enrich"
+import "github.com/enrich-data/enrich-api-go/enrich"
 ```
 
 Construct a new authenticated Enrich client with your `user_id` and `secret_key` tokens (you can generate those from your Enrich Dashboard, [see the docs](https://docs.enrichdata.com/api/v1/)).
