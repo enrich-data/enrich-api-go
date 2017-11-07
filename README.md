@@ -88,7 +88,7 @@ data, _, err := client.Search.LookupCompaniesBy(1, "name", "Crisp")
 * **Docs:** [https://docs.enrichdata.com/api/v1/#lookup-emails](https://docs.enrichdata.com/api/v1/#lookup-emails)
 
 ```go
-data, _, err := client.Search.LookupEmails(1, "crisp.chat", "Crisp IM, Inc.")
+data, _, err := client.Search.LookupEmails(1, "crisp.chat", "Crisp IM SARL")
 ```
 
 #### Suggest Companies
@@ -137,7 +137,7 @@ data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
 * **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-company](https://docs.enrichdata.com/api/v1/#enrich-a-company)
 
 ```go
-data, _, err := client.Enrich.EnrichCompanyBy("legal_name", "Crisp IM, Inc.")
+data, _, err := client.Enrich.EnrichCompanyBy("legal_name", "Crisp IM SARL")
 ```
 
 #### Enrich a Network
