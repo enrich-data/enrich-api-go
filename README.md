@@ -137,7 +137,7 @@ data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
 * **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-company](https://docs.enrichdata.com/api/v1/#enrich-a-company)
 
 ```go
-data, _, err := client.Enrich.EnrichCompanyBy("legal_name", "Crisp IM SARL")
+data, _, err := client.Enrich.EnrichCompanyBy("name", "Crisp IM")
 ```
 
 #### Enrich a Network
