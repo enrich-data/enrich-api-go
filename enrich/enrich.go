@@ -22,11 +22,6 @@ type EnrichPersonData struct {
   Companies  *[]Company  `json:"companies,omitempty"`
 }
 
-// EnrichCompanyData mapping
-type EnrichCompanyData struct {
-  Company  *Company  `json:"company,omitempty"`
-}
-
 // EnrichNetworkData mapping
 type EnrichNetworkData struct {
   Network  *Network  `json:"network,omitempty"`
@@ -36,11 +31,6 @@ type EnrichNetworkData struct {
 
 // String returns the string representation of EnrichPersonData
 func (instance EnrichPersonData) String() string {
-  return Stringify(instance)
-}
-
-// String returns the string representation of EnrichCompanyData
-func (instance EnrichCompanyData) String() string {
   return Stringify(instance)
 }
 
@@ -56,20 +46,6 @@ func (service *EnrichService) EnrichPersonBy(key string, value string) (*EnrichP
   req, _ := service.client.NewRequest("GET", url, nil)
 
   data := new(EnrichPersonData)
-  resp, err := service.client.Do(req, data)
-  if err != nil {
-    return nil, resp, err
-  }
-
-  return data, resp, err
-}
-
-// EnrichCompanyBy enriches data on a company with more information on that company.
-func (service *EnrichService) EnrichCompanyBy(key string, value string) (*EnrichCompanyData, *Response, error) {
-  url := fmt.Sprintf("enrich/company?%s=%s", key, url.QueryEscape(value))
-  req, _ := service.client.NewRequest("GET", url, nil)
-
-  data := new(EnrichCompanyData)
   resp, err := service.client.Do(req, data)
   if err != nil {
     return nil, resp, err

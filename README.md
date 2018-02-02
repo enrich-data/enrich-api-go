@@ -62,44 +62,6 @@ If a requested data point is already known by the Enrich API, it will be immedia
 
 This library implements all methods the Enrich API provides. See the [API docs](https://docs.enrichdata.com/api/v1/) for a reference of available methods, as well as how returned data is formatted.
 
-### Search API
-
-#### Lookup People
-
-* **Method:** `client.Search.LookupPeopleBy(pageNumber, queryKey, queryValue)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#lookup-people](https://docs.enrichdata.com/api/v1/#lookup-people)
-
-```go
-data, _, err := client.Search.LookupPeopleBy(1, "company_name", "Crisp")
-```
-
-#### Lookup Companies
-
-* **Method:** `client.Search.LookupCompaniesBy(pageNumber, queryKey, queryValue)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#lookup-companies](https://docs.enrichdata.com/api/v1/#lookup-companies)
-
-```go
-data, _, err := client.Search.LookupCompaniesBy(1, "name", "Crisp")
-```
-
-#### Lookup Emails
-
-* **Method:** `client.Search.LookupEmails(pageNumber, emailDomain, legalName)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#lookup-emails](https://docs.enrichdata.com/api/v1/#lookup-emails)
-
-```go
-data, _, err := client.Search.LookupEmails(1, "crisp.chat", "Crisp IM SARL")
-```
-
-#### Suggest Companies
-
-* **Method:** `client.Search.SuggestCompanies(pageNumber, companyName)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#suggest-companies](https://docs.enrichdata.com/api/v1/#suggest-companies)
-
-```go
-data, _, err := client.Search.SuggestCompanies(1, "Crisp")
-```
-
 ### Verify API
 
 #### Validate an Email
@@ -111,15 +73,6 @@ data, _, err := client.Search.SuggestCompanies(1, "Crisp")
 data, _, err := client.Verify.ValidateEmail("valerian@crisp.chat")
 ```
 
-#### Format an Email
-
-* **Method:** `client.Verify.FormatEmail(emailDomain, firstName, lastName)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#format-an-email](https://docs.enrichdata.com/api/v1/#format-an-email)
-
-```go
-data, _, err := client.Verify.FormatEmail("crisp.chat", "Valerian", "Saliou")
-```
-
 ### Enrich API
 
 #### Enrich a Person
@@ -129,15 +82,6 @@ data, _, err := client.Verify.FormatEmail("crisp.chat", "Valerian", "Saliou")
 
 ```go
 data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
-```
-
-#### Enrich a Company
-
-* **Method:** `client.Enrich.EnrichCompanyBy(key, value)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-company](https://docs.enrichdata.com/api/v1/#enrich-a-company)
-
-```go
-data, _, err := client.Enrich.EnrichCompanyBy("name", "Crisp IM")
 ```
 
 #### Enrich a Network

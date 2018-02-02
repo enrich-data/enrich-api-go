@@ -23,13 +23,6 @@ type ValidateEmailData struct {
   Results   *ValidateEmailResults  `json:"results,omitempty"`
 }
 
-// FormatEmailData mapping
-type FormatEmailData struct {
-  Found      *bool    `json:"found,omitempty"`
-  Formatted  *string  `json:"formatted,omitempty"`
-  Pattern    *string  `json:"pattern,omitempty"`
-}
-
 // ValidateEmailResults mapping
 type ValidateEmailResults struct {
   Gravatar     *bool  `json:"gravatar,omitempty"`
@@ -51,11 +44,6 @@ func (instance ValidateEmailData) String() string {
   return Stringify(instance)
 }
 
-// String returns the string representation of FormatEmailData
-func (instance FormatEmailData) String() string {
-  return Stringify(instance)
-}
-
 // String returns the string representation of ValidateEmailResults
 func (instance ValidateEmailResults) String() string {
   return Stringify(instance)
@@ -68,20 +56,6 @@ func (service *VerifyService) ValidateEmail(email string) (*ValidateEmailData, *
   req, _ := service.client.NewRequest("GET", url, nil)
 
   data := new(ValidateEmailData)
-  resp, err := service.client.Do(req, data)
-  if err != nil {
-    return nil, resp, err
-  }
-
-  return data, resp, err
-}
-
-// FormatEmail formats an email and returns the email pattern for this company.
-func (service *VerifyService) FormatEmail(emailDomain string, firstName string, lastName string) (*FormatEmailData, *Response, error) {
-  url := fmt.Sprintf("verify/format/email?email_domain=%s&first_name=%s&last_name=%s", url.QueryEscape(emailDomain), url.QueryEscape(firstName), url.QueryEscape(lastName))
-  req, _ := service.client.NewRequest("GET", url, nil)
-
-  data := new(FormatEmailData)
   resp, err := service.client.Do(req, data)
   if err != nil {
     return nil, resp, err

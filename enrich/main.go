@@ -20,7 +20,7 @@ import (
 
 
 const (
-  libraryVersion = "1.1.1"
+  libraryVersion = "1.1.2"
   defaultRestEndpointURL = "https://api.enrichdata.com/v1/"
   userAgent = "enrich-api-go/" + libraryVersion
   acceptContentType = "application/json"
@@ -53,7 +53,6 @@ type Client struct {
 
   common service
 
-  Search *SearchService
   Verify *VerifyService
   Enrich *EnrichService
 }
@@ -101,7 +100,6 @@ func NewWithConfig(config ClientConfig) *Client {
   client.common.client = client
 
   // Map services
-  client.Search = (*SearchService)(&client.common)
   client.Verify = (*VerifyService)(&client.common)
   client.Enrich = (*EnrichService)(&client.common)
 
