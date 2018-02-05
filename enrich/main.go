@@ -27,7 +27,7 @@ const (
   clientTimeout = 5
   createdStatusCode = 201
   notFoundStatusCode = 404
-  createdRetryCountMax = 2
+  createdRetryCountMax = 10
 )
 
 // ClientConfig mapping
