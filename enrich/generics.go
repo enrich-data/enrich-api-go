@@ -24,10 +24,12 @@ type Person struct {
 
 // PersonSocial mapping
 type PersonSocial struct {
-  Facebook  *PersonSocialNetwork  `json:"facebook,omitempty"`
-  Twitter   *PersonSocialNetwork  `json:"twitter,omitempty"`
-  LinkedIn  *PersonSocialNetwork  `json:"linkedin,omitempty"`
-  GitHub    *PersonSocialNetwork  `json:"github,omitempty"`
+  Facebook   *PersonSocialNetwork  `json:"facebook,omitempty"`
+  Twitter    *PersonSocialNetwork  `json:"twitter,omitempty"`
+  LinkedIn   *PersonSocialNetwork  `json:"linkedin,omitempty"`
+  GitHub     *PersonSocialNetwork  `json:"github,omitempty"`
+  YouTube    *PersonSocialNetwork  `json:"youtube,omitempty"`
+  Instagram  *PersonSocialNetwork  `json:"instagram,omitempty"`
 }
 
 // PersonSocialNetwork mapping
@@ -132,13 +134,15 @@ type NetworkBlockOwner struct {
 
 // Contact mapping
 type Contact struct {
-  Domain    *string    `json:"domain,omitempty"`
-  Website   *string    `json:"website,omitempty"`
-  Facebook  *string    `json:"facebook,omitempty"`
-  Twitter   *string    `json:"twitter,omitempty"`
-  LinkedIn  *string    `json:"linkedin,omitempty"`
-  Emails    *[]string  `json:"emails,omitempty"`
-  Phones    *[]string  `json:"phones,omitempty"`
+  Domain     *string    `json:"domain,omitempty"`
+  Website    *string    `json:"website,omitempty"`
+  Facebook   *string    `json:"facebook,omitempty"`
+  Twitter    *string    `json:"twitter,omitempty"`
+  LinkedIn   *string    `json:"linkedin,omitempty"`
+  YouTube    *string    `json:"youtube,omitempty"`
+  Instagram  *string    `json:"instagram,omitempty"`
+  Emails     *[]string  `json:"emails,omitempty"`
+  Phones     *[]string  `json:"phones,omitempty"`
 }
 
 // Address mapping
