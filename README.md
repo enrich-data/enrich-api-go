@@ -84,6 +84,15 @@ data, _, err := client.Verify.ValidateEmail("valerian@crisp.chat")
 data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
 ```
 
+#### Enrich a Company
+
+* **Method:** `client.Enrich.EnrichCompanyBy(key, value)`
+* **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-company](https://docs.enrichdata.com/api/v1/#enrich-a-company)
+
+```go
+data, _, err := client.Enrich.EnrichCompanyBy("name", "Crisp IM")
+```
+
 #### Enrich a Network
 
 * **Method:** `client.Enrich.EnrichNetworkBy(key, value)`
