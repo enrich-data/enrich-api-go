@@ -62,6 +62,7 @@ type Company struct {
   Category     *CompanyCategory  `json:"category,omitempty"`
   Address      *Address          `json:"address,omitempty"`
   Metrics      *CompanyMetrics   `json:"metrics,omitempty"`
+  Emails       *CompanyEmails    `json:"emails,omitempty"`
 }
 
 // CompanyCategory mapping
@@ -76,6 +77,11 @@ type CompanyMetrics struct {
   Employees         *[]uint32                     `json:"employees,omitempty"`
   FacebookLikes     *uint32                       `json:"facebook_likes,omitempty"`
   TwitterFollowers  *uint32                       `json:"twitter_followers,omitempty"`
+}
+
+// CompanyEmails mapping
+type CompanyEmails struct {
+  Employees  *[]uint16  `json:"employees,omitempty"`
 }
 
 // CompanyMetricsAnnualRevenue mapping
@@ -210,6 +216,11 @@ func (instance CompanyCategory) String() string {
 
 // String returns the string representation of CompanyMetrics
 func (instance CompanyMetrics) String() string {
+  return Stringify(instance)
+}
+
+// String returns the string representation of CompanyEmails
+func (instance CompanyEmails) String() string {
   return Stringify(instance)
 }
 
