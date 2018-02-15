@@ -81,6 +81,7 @@ type CompanyMetrics struct {
 
 // CompanyEmails mapping
 type CompanyEmails struct {
+  Format     *string    `json:"format,omitempty"`
   Employees  *[]uint16  `json:"employees,omitempty"`
 }
 
