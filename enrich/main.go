@@ -15,19 +15,15 @@ import (
   "io/ioutil"
   "net/http"
   "net/url"
-  "strconv"
 )
 
 
 const (
-  libraryVersion = "1.1.8"
+  libraryVersion = "1.2.0"
   defaultRestEndpointURL = "https://api.enrichdata.com/v1/"
   userAgent = "enrich-api-go/" + libraryVersion
   acceptContentType = "application/json"
-  clientTimeout = 5
-  createdStatusCode = 201
-  notFoundStatusCode = 404
-  createdRetryCountMax = 10
+  clientTimeout = 40
 )
 
 // ClientConfig mapping
@@ -161,20 +157,12 @@ func (client *Client) NewRequest(method, urlStr string, body interface{}) (*http
 
 // Do sends an API request
 func (client *Client) Do(req *http.Request, v interface{}) (*Response, error) {
-  return client.DoInner(req, v, 0, 0)
+  return client.DoInner(req, v)
 }
 
 
 // DoInner sends an API request (inner)
-func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8, holdForSeconds int) (*Response, error) {
-  // Abort?
-  if retryCount > createdRetryCountMax {
-    return nil, &errorResponseError{Reason: "not_found", Message: "The requested item was not found, after attempted discovery."}
-  }
-
-  // Hold
-  time.Sleep(time.Duration(holdForSeconds) * time.Second)
-
+func (client *Client) DoInner(req *http.Request, v interface{}) (*Response, error) {
   resp, err := client.client.Do(req)
   if err != nil {
     return nil, err
@@ -186,22 +174,6 @@ func (client *Client) DoInner(req *http.Request, v interface{}, retryCount uint8
   }()
 
   response := newResponse(resp)
-
-  // Re-schedule request? (created)
-  if response.StatusCode == createdStatusCode || (retryCount > 0 && response.StatusCode == notFoundStatusCode) {
-    holdWaitOrder := resp.Header.Get("Retry-After")
-    holdWait := holdForSeconds
-
-    if holdWaitOrder != "" {
-      holdWaitParsed, holdWaitErr := strconv.ParseInt(holdWaitOrder, 10, 32)
-
-      if holdWaitErr == nil {
-        holdWait = int(holdWaitParsed)
-      }
-    }
-
-    return client.DoInner(req, v, retryCount + 1, holdWait)
-  }
 
   err = checkResponse(resp)
   if err != nil {
