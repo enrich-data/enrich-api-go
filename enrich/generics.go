@@ -79,16 +79,26 @@ type CompanyMetrics struct {
   TwitterFollowers  *uint32                       `json:"twitter_followers,omitempty"`
 }
 
-// CompanyEmails mapping
-type CompanyEmails struct {
-  Format     *string    `json:"format,omitempty"`
-  Employees  *[]uint16  `json:"employees,omitempty"`
-}
-
 // CompanyMetricsAnnualRevenue mapping
 type CompanyMetricsAnnualRevenue struct {
   Amount    *int64   `json:"amount,omitempty"`
   Currency  *string  `json:"currency,omitempty"`
+}
+
+// CompanyEmails mapping
+type CompanyEmails struct {
+  Format     *string                   `json:"format,omitempty"`
+  Employees  *[]CompanyEmailsEmployee  `json:"employees,omitempty"`
+}
+
+// CompanyEmailsEmployee mapping
+type CompanyEmailsEmployee struct {
+  ID         *string    `json:"id,omitempty"`
+  Name       *Name      `json:"name,omitempty"`
+  Emails     *[]string  `json:"emails,omitempty"`
+  Title      *string    `json:"title,omitempty"`
+  Role       *string    `json:"role,omitempty"`
+  Seniority  *string    `json:"seniority,omitempty"`
 }
 
 // Network mapping
@@ -220,13 +230,18 @@ func (instance CompanyMetrics) String() string {
   return Stringify(instance)
 }
 
+// String returns the string representation of CompanyMetricsAnnualRevenue
+func (instance CompanyMetricsAnnualRevenue) String() string {
+  return Stringify(instance)
+}
+
 // String returns the string representation of CompanyEmails
 func (instance CompanyEmails) String() string {
   return Stringify(instance)
 }
 
-// String returns the string representation of CompanyMetricsAnnualRevenue
-func (instance CompanyMetricsAnnualRevenue) String() string {
+// String returns the string representation of CompanyEmailsEmployee
+func (instance CompanyEmailsEmployee) String() string {
   return Stringify(instance)
 }
 
