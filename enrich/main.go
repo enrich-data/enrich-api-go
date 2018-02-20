@@ -19,7 +19,7 @@ import (
 
 
 const (
-  libraryVersion = "1.2.0"
+  libraryVersion = "1.2.1"
   defaultRestEndpointURL = "https://api.enrichdata.com/v1/"
   userAgent = "enrich-api-go/" + libraryVersion
   acceptContentType = "application/json"

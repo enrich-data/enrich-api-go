@@ -4,7 +4,7 @@ The Enrich API Golang wrapper. Enrich, Search and Verify data from your Golang s
 
 Copyright 2017 Enrich. See LICENSE for copying information.
 
-* **📝 Implements**: [Enrich REST API ~ v1](https://docs.enrichdata.com/api/v1/) at reference revision: 10/05/2017
+* **📝 Implements**: [Enrich REST API ~ v1](https://docs.enrichdata.com/api/v1/) at reference revision: 02/20/2018
 * **😘 Maintainer**: [@valeriansaliou](https://github.com/valeriansaliou)
 
 ## Usage

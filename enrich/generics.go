@@ -50,19 +50,19 @@ type PersonEmployment struct {
 
 // Company mapping
 type Company struct {
-  ID           *string           `json:"id,omitempty"`
-  Name         *string           `json:"name,omitempty"`
-  LegalName    *string           `json:"legal_name,omitempty"`
-  Logo         *string           `json:"logo,omitempty"`
-  Description  *string           `json:"description,omitempty"`
-  Kind         *string           `json:"kind,omitempty"`
-  Founded      *uint16           `json:"founded,omitempty"`
-  Timezone     *string           `json:"timezone,omitempty"`
-  Contact      *Contact          `json:"contact,omitempty"`
-  Category     *CompanyCategory  `json:"category,omitempty"`
-  Address      *Address          `json:"address,omitempty"`
-  Metrics      *CompanyMetrics   `json:"metrics,omitempty"`
-  Emails       *CompanyEmails    `json:"emails,omitempty"`
+  ID           *string            `json:"id,omitempty"`
+  Name         *string            `json:"name,omitempty"`
+  LegalName    *string            `json:"legal_name,omitempty"`
+  Logo         *string            `json:"logo,omitempty"`
+  Description  *string            `json:"description,omitempty"`
+  Kind         *string            `json:"kind,omitempty"`
+  Founded      *uint16            `json:"founded,omitempty"`
+  Timezone     *string            `json:"timezone,omitempty"`
+  Contact      *Contact           `json:"contact,omitempty"`
+  Category     *CompanyCategory   `json:"category,omitempty"`
+  Address      *Address           `json:"address,omitempty"`
+  Metrics      *CompanyMetrics    `json:"metrics,omitempty"`
+  Employees    *CompanyEmployees  `json:"employees,omitempty"`
 }
 
 // CompanyCategory mapping
@@ -85,20 +85,25 @@ type CompanyMetricsAnnualRevenue struct {
   Currency  *string  `json:"currency,omitempty"`
 }
 
-// CompanyEmails mapping
-type CompanyEmails struct {
-  Format     *string                   `json:"format,omitempty"`
-  Employees  *[]CompanyEmailsEmployee  `json:"employees,omitempty"`
+// CompanyEmployees mapping
+type CompanyEmployees struct {
+  EmailFormat  *string                    `json:"email_format,omitempty"`
+  Persons      *[]CompanyEmployeesPerson  `json:"persons,omitempty"`
 }
 
-// CompanyEmailsEmployee mapping
-type CompanyEmailsEmployee struct {
-  ID         *string    `json:"id,omitempty"`
-  Name       *Name      `json:"name,omitempty"`
-  Emails     *[]string  `json:"emails,omitempty"`
-  Title      *string    `json:"title,omitempty"`
-  Role       *string    `json:"role,omitempty"`
-  Seniority  *string    `json:"seniority,omitempty"`
+// CompanyEmployeesPerson mapping
+type CompanyEmployeesPerson struct {
+  ID          *string                            `json:"id,omitempty"`
+  Name        *Name                              `json:"name,omitempty"`
+  Employment  *CompanyEmployeesPersonEmployment  `json:"employment,omitempty"`
+  Contact     *Contact                           `json:"contact,omitempty"`
+}
+
+// CompanyEmployeesPersonEmployment mapping
+type CompanyEmployeesPersonEmployment struct {
+  Title      *string  `json:"title,omitempty"`
+  Role       *string  `json:"role,omitempty"`
+  Seniority  *string  `json:"seniority,omitempty"`
 }
 
 // Network mapping
@@ -235,13 +240,18 @@ func (instance CompanyMetricsAnnualRevenue) String() string {
   return Stringify(instance)
 }
 
-// String returns the string representation of CompanyEmails
-func (instance CompanyEmails) String() string {
+// String returns the string representation of CompanyEmployees
+func (instance CompanyEmployees) String() string {
   return Stringify(instance)
 }
 
-// String returns the string representation of CompanyEmailsEmployee
-func (instance CompanyEmailsEmployee) String() string {
+// String returns the string representation of CompanyEmployeesPerson
+func (instance CompanyEmployeesPerson) String() string {
+  return Stringify(instance)
+}
+
+// String returns the string representation of CompanyEmployeesPersonEmployment
+func (instance CompanyEmployeesPersonEmployment) String() string {
   return Stringify(instance)
 }
 
