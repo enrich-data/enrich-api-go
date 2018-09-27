@@ -15,7 +15,7 @@ Import the library:
 import "github.com/enrich-data/enrich-api-go/enrich"
 ```
 
-Construct a new authenticated Enrich client with your `user_id` and `secret_key` tokens (you can generate those from your Enrich Dashboard, [see the docs](https://docs.enrich.email/api/v1/)).
+Construct a new authenticated Enrich client with your `user_id` and `secret_key` tokens.
 
 ```go
 client := enrich.New()
@@ -39,7 +39,7 @@ if err != nil {
 
 ## Authentication
 
-To authenticate against the API, generate your tokens (`user_id` and `secret_key`) **once** from your [Enrich Dashboard](https://dashboard.enrich.email/).
+To authenticate against the API, get your tokens (`user_id` and `secret_key`).
 
 Then, pass those tokens **once** when you instanciate the Enrich client as following:
 
