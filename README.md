@@ -2,7 +2,7 @@
 
 The Enrich API Golang wrapper. Enrich, Search and Verify data from your Golang services.
 
-Copyright 2017 Enrich. See LICENSE for copying information.
+Copyright 2017 Crisp IM SARL. See LICENSE for copying information.
 
 * **📝 Implements**: [Enrich REST API ~ v1](https://docs.enrich.email/api/v1/) at reference revision: 02/20/2018
 * **😘 Maintainer**: [@valeriansaliou](https://github.com/valeriansaliou)
