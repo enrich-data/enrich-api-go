@@ -4,7 +4,7 @@ The Enrich API Golang wrapper. Enrich, Search and Verify data from your Golang s
 
 Copyright 2017 Enrich. See LICENSE for copying information.
 
-* **📝 Implements**: [Enrich REST API ~ v1](https://docs.enrichdata.com/api/v1/) at reference revision: 02/20/2018
+* **📝 Implements**: [Enrich REST API ~ v1](https://docs.enrich.email/api/v1/) at reference revision: 02/20/2018
 * **😘 Maintainer**: [@valeriansaliou](https://github.com/valeriansaliou)
 
 ## Usage
@@ -15,7 +15,7 @@ Import the library:
 import "github.com/enrich-data/enrich-api-go/enrich"
 ```
 
-Construct a new authenticated Enrich client with your `user_id` and `secret_key` tokens (you can generate those from your Enrich Dashboard, [see the docs](https://docs.enrichdata.com/api/v1/)).
+Construct a new authenticated Enrich client with your `user_id` and `secret_key` tokens (you can generate those from your Enrich Dashboard, [see the docs](https://docs.enrich.email/api/v1/)).
 
 ```go
 client := enrich.New()
@@ -39,7 +39,7 @@ if err != nil {
 
 ## Authentication
 
-To authenticate against the API, generate your tokens (`user_id` and `secret_key`) **once** from your [Enrich Dashboard](https://dashboard.enrichdata.com/).
+To authenticate against the API, generate your tokens (`user_id` and `secret_key`) **once** from your [Enrich Dashboard](https://dashboard.enrich.email/).
 
 Then, pass those tokens **once** when you instanciate the Enrich client as following:
 
@@ -60,14 +60,14 @@ If a requested data point is already known by the Enrich API, it will be immedia
 
 ## Resource Methods
 
-This library implements all methods the Enrich API provides. See the [API docs](https://docs.enrichdata.com/api/v1/) for a reference of available methods, as well as how returned data is formatted.
+This library implements all methods the Enrich API provides. See the [API docs](https://docs.enrich.email/api/v1/) for a reference of available methods, as well as how returned data is formatted.
 
 ### Verify API
 
 #### Validate an Email
 
 * **Method:** `client.Verify.ValidateEmail(email)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#validate-an-email](https://docs.enrichdata.com/api/v1/#validate-an-email)
+* **Docs:** [https://docs.enrich.email/api/v1/#validate-an-email](https://docs.enrich.email/api/v1/#validate-an-email)
 
 ```go
 data, _, err := client.Verify.ValidateEmail("valerian@crisp.chat")
@@ -78,7 +78,7 @@ data, _, err := client.Verify.ValidateEmail("valerian@crisp.chat")
 #### Enrich a Person
 
 * **Method:** `client.Enrich.EnrichPersonBy(key, value)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-person](https://docs.enrichdata.com/api/v1/#enrich-a-person)
+* **Docs:** [https://docs.enrich.email/api/v1/#enrich-a-person](https://docs.enrich.email/api/v1/#enrich-a-person)
 
 ```go
 data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
@@ -87,7 +87,7 @@ data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
 #### Enrich a Company
 
 * **Method:** `client.Enrich.EnrichCompanyBy(key, value)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-company](https://docs.enrichdata.com/api/v1/#enrich-a-company)
+* **Docs:** [https://docs.enrich.email/api/v1/#enrich-a-company](https://docs.enrich.email/api/v1/#enrich-a-company)
 
 ```go
 data, _, err := client.Enrich.EnrichCompanyBy("domain", "crisp.chat")
@@ -96,7 +96,7 @@ data, _, err := client.Enrich.EnrichCompanyBy("domain", "crisp.chat")
 #### Enrich a Network
 
 * **Method:** `client.Enrich.EnrichNetworkBy(key, value)`
-* **Docs:** [https://docs.enrichdata.com/api/v1/#enrich-a-network](https://docs.enrichdata.com/api/v1/#enrich-a-network)
+* **Docs:** [https://docs.enrich.email/api/v1/#enrich-a-network](https://docs.enrich.email/api/v1/#enrich-a-network)
 
 ```go
 data, _, err := client.Enrich.EnrichNetworkBy("ip", "178.62.89.169")

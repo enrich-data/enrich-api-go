@@ -19,8 +19,8 @@ import (
 
 
 const (
-  libraryVersion = "1.2.1"
-  defaultRestEndpointURL = "https://api.enrichdata.com/v1/"
+  libraryVersion = "2.0.0"
+  defaultRestEndpointURL = "https://api.enrich.email/v1/"
   userAgent = "enrich-api-go/" + libraryVersion
   acceptContentType = "application/json"
   clientTimeout = 40
