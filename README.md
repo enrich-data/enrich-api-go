@@ -4,7 +4,6 @@ The Enrich API Golang wrapper. Enrich, Search and Verify data from your Golang s
 
 Copyright 2017 Crisp IM SAS. See LICENSE for copying information.
 
-* **📝 Implements**: [Enrich REST API ~ v1](https://docs.enrich.email/api/v1/) at reference revision: 02/20/2018
 * **😘 Maintainer**: [@valeriansaliou](https://github.com/valeriansaliou)
 
 ## Usage
@@ -60,14 +59,13 @@ If a requested data point is already known by the Enrich API, it will be immedia
 
 ## Resource Methods
 
-This library implements all methods the Enrich API provides. See the [API docs](https://docs.enrich.email/api/v1/) for a reference of available methods, as well as how returned data is formatted.
+This library implements all methods the Enrich API provides.
 
 ### Verify API
 
 #### Validate an Email
 
 * **Method:** `client.Verify.ValidateEmail(email)`
-* **Docs:** [https://docs.enrich.email/api/v1/#validate-an-email](https://docs.enrich.email/api/v1/#validate-an-email)
 
 ```go
 data, _, err := client.Verify.ValidateEmail("valerian@crisp.chat")
@@ -78,7 +76,6 @@ data, _, err := client.Verify.ValidateEmail("valerian@crisp.chat")
 #### Enrich a Person
 
 * **Method:** `client.Enrich.EnrichPersonBy(key, value)`
-* **Docs:** [https://docs.enrich.email/api/v1/#enrich-a-person](https://docs.enrich.email/api/v1/#enrich-a-person)
 
 ```go
 data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
@@ -87,7 +84,6 @@ data, _, err := client.Enrich.EnrichPersonBy("email", "valerian@crisp.chat")
 #### Enrich a Company
 
 * **Method:** `client.Enrich.EnrichCompanyBy(key, value)`
-* **Docs:** [https://docs.enrich.email/api/v1/#enrich-a-company](https://docs.enrich.email/api/v1/#enrich-a-company)
 
 ```go
 data, _, err := client.Enrich.EnrichCompanyBy("domain", "crisp.chat")
@@ -96,7 +92,6 @@ data, _, err := client.Enrich.EnrichCompanyBy("domain", "crisp.chat")
 #### Enrich a Network
 
 * **Method:** `client.Enrich.EnrichNetworkBy(key, value)`
-* **Docs:** [https://docs.enrich.email/api/v1/#enrich-a-network](https://docs.enrich.email/api/v1/#enrich-a-network)
 
 ```go
 data, _, err := client.Enrich.EnrichNetworkBy("ip", "178.62.89.169")
